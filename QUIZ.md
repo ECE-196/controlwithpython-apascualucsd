@@ -1,5 +1,6 @@
 ### How does the DevBoard handle received serial messages? How does this differ from the naïve approach?
-
+The DevBoard handles received serial messages from reading bytes from the serial port (the port that you choose ie. COM3) and processing them accordingly, valid bytes will toggle the LED and invalid bytes will send an error message alerting the user. This differs from the naive approach where the DevBoard simply reads and reacts to each byte as it arrives which is less efficient and harder to manage. 
 ### What does `detached_callback` do? What would happen if it wasn't used?
-
+detached_callback takes in a function and will execute that function in a separate thread, without this, if any of our serial code gets stuck or takes a long time, our UI will freeze for that time. It is useful for running tasks concurrently without blocking the main thread. 
 ### What does `LockedSerial` do? Why is it _necessary_?
+LockSerial type behaves exactly like the Serial type but with a lock around every function call, it protects access to read, write, and close methods, releasing the lock when whatever thread is executing it finishes. This prevents multiple threads from executing a block of code simultaneously (makes sure that access to the serial port is serialized). This is necessary because if this were to happen, it'd cause undefined behavior in the form of a race condition. 
