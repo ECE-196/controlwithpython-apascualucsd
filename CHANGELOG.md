@@ -9,7 +9,7 @@ Alexis Emmanuelle Pascual
 submission.mp4
 
 ### Changed
-CHANGELOG and app.py
+CHANGELOG, app.py, and QUIZ.md
 
 ### Removed
 n/a
